@@ -1,0 +1,534 @@
+body {
+    background-color: black;
+    overflow:hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#drive-to-zero {
+  font-family: 'Rubik 80s Fade';
+  font-size: 6vh;
+  color: #ffda18;
+  border: 1px;
+  border-style: groove;
+  transform: rotate(-15deg);
+  box-shadow: 4px 0 16px;
+}
+
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
+}
+
+div#welcome {
+    position: fixed;
+    z-index: 12;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    text-align: center;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    justify-content: space-evenly;
+    top: 0;
+    left: 0;
+    background-image: url(assets/bg.jpeg);
+    background-position-y: 100%;
+    background-repeat: no-repeat;
+}
+
+#welcome-car {
+  transform: rotate(0deg);
+  animation: rotation 2s linear infinite;
+}
+
+#startGame {
+    padding: 5%;
+    background: #f6cf02;
+    font-size: 7vh;
+    font-family: 'Rubik 80s Fade', cursive;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#gameScreen {
+    width: 67%;
+    height: 98%;
+    margin: auto;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    font-family: monospace;
+    border-radius: 8px;
+    justify-content: space-between;
+}
+
+#target-num {
+  position: fixed;
+  top: 10%;
+  z-index: 0;
+  background: black;
+  border-radius: 60px;
+  display: flex;
+  padding: 2%;
+  width: 80px;
+  height: 80px;
+}
+
+.trash {
+  background-image: url("assets/trash_can.png");
+}
+
+.fallingNumber {
+  padding: 1%;
+  color: transparent;
+  font-weight: 600;
+  position: absolute;
+  left: 38%;
+  top: 0%;
+  width: 107px;
+  height: 140px;
+  border-radius: 82px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', cursive;
+  animation: fallingNum 28s linear infinite;
+}
+
+.falling-faster {
+  animation-duration: 20s;
+}
+
+.gold {
+    background-color: #fff000;
+    color: #8d8300;
+}
+
+.obstacle {
+  background-image: url("assets/car1.png");
+  top: 18%;
+  background-size: 78%;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  height: 12%;
+}
+
+.path {
+    flex-basis: 32%;
+    position: relative;
+    height: 100%;
+}
+
+#player {
+  width: 20%;
+  height: 275px;
+  position: absolute;
+  bottom: 3%;
+  left: 15%;
+  border-radius: 16px;
+  z-index: 1;
+  transition-duration: 0.1s;
+  text-align: center;
+  line-height: 4;
+  font-size: 11pt;
+  background-size: 100%;
+  color: white;
+  background-image: url(assets/trashmaster.png);
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+
+#header {
+    position: fixed;
+    font-family: 'Caveat', cursive;
+    z-index: 5;
+    width: 100%;
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    height: 9%;
+    justify-content: center;
+    font-size: 4vh;
+    background-image: url(assets/bg.jpeg);
+    background-position-y: 22%;
+    background-position-x: 225%;
+    box-shadow: 0 0 11px black;
+}
+
+#gesture {
+    position: absolute;
+    font-size: 9vh;
+    top: 29%;
+    left: 20%;
+    color: deeppink;
+    font-family: 'Rubik 80s Fade', cursive;
+    text-transform: uppercase;
+}
+
+#clock {
+  position: fixed;
+  top: 9%;
+  color: green;
+  left: 34%;
+  z-index: 2;
+  font-size: 3vh;
+  width: 33%;
+  background: black;
+  font-family: 'Nova Square', cursive;
+  text-align: center;
+}
+
+
+/* #player::after {
+    width: 75%;
+    height: 58%;
+    background: #0e967a;
+    position: absolute;
+    content: ' ';
+    left: 9%;
+    top: 22%;
+    border: 3px solid #117863;
+    z-index: -1;
+    border-radius: 6px;
+} */
+
+/* #player::before {
+        position: absolute;
+        content: ' ';
+        width: 92px;
+        background: #e8e826;
+        height: 6px;
+        left: 0;
+        top: 0%;
+        background: linear-gradient(to LEFT, white 32%,#06b390 33%,#06b390 66%,white 67%);
+        border-radius: 16px;
+        box-shadow: 0 -5px 5px #ffffff59;
+} */
+
+#targetNumber {
+    text-align: center;
+    font-size: 30pt;
+    color: #343030;
+    font-family: monospace;
+}
+
+#currentVal {
+    margin-top: 37%;
+}
+
+#added {
+    color: #fff000;
+    opacity: 0.8;
+    transition-duration: 0.8;
+    font-size: 14pt;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
+}
+
+.shake {
+    animation: shake 0.9s both infinite;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+  
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(1px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-2px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(2px, 0, 0);
+    }
+  }
+
+  .border {
+    height: 101%;
+    width: 6px;
+    left: 50%;
+    position: absolute;
+    background: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(0deg, white 50%, transparent 50%), linear-gradient(0deg, white 50%, transparent 50%);
+    background-repeat: repeat-y, repeat-y;
+    background-size: 19px 12px, 21px 14px, 19px 59px, 4px 15px;
+    background-position: 0px 0px, 204px 100px, 0px 109px, 200px 0px;
+    padding: 1px;
+    animation: border-dance 0.5s infinite linear;
+  }
+  @keyframes border-dance {
+    100% {
+      background-position: 0px 0px, 300px 116px, 0px 150px, 216px 0px;
+    }
+    0% {
+      background-position: 300px 0px, 0px 116px, 0px 0px, 216px 150px;
+    }
+  }  
+
+  .main {
+    background-image: url(assets/bgRoad.png);
+    background-repeat-x: no-repeat;
+    background-size: 110%;
+    background-repeat-y: repeat;
+    background-position-y: 27px;
+    background-position-x: 50%;
+    animation: loopingRoad 98s linear infinite;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+@keyframes loopingRoad {
+    from {
+        background-position-y: 0;
+    }
+    to {
+        background-position-y: 100000px;
+    }
+}
+
+@keyframes fallingNum {
+    from {
+        top: 0;
+    }
+    to {
+        top: 1000%;
+    }
+}
+
+@keyframes rotation {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+
+  .coins {
+    position: absolute;
+    font-size: 3vh;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-shadow: 0 0 7px white;
+    color: #cc9933;
+    flex-direction: column;
+    border: 7px solid #cc9933;
+    border-radius: 100%;
+    padding: 1%;
+    top: 17%;
+    left: 3%;
+    transition-duration: 1s;
+    z-index: 6;
+    font-family: monospace;
+    font-weight: 600;
+    background-image: url(https://e7.pngegg.com/pngimages/925/977/png-clipart-hd-gold-gold-medal-medals.png);
+    background-repeat: no-repeat;
+    background-position: 28%;
+    background-size: 178px;
+    background-position-x: 50%;
+  }
+
+  #counters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    line-height: 80%;
+    position: relative;
+  }
+
+  #indication {
+    color: #66c720;
+    flex-basis: 100%;
+  }
+
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+
+  #gameOver {
+    font-size: 10vh;
+    font-family: 'Courier New', Courier, monospace;
+    position: fixed;
+    top: 18%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #gameOver button {
+    display: block;
+    width: 25%;
+    padding: 3%;
+    font-family: 'Courier New', Courier, monospace;
+    background: #f6cf02;
+    font-size: 1vh;
+    font-weight: 600;
+  }
+
+  .numberAnimation {
+    position: absolute;
+    transition-duration: 1.5s;
+    z-index: 6;
+    font-size: 3vh;
+    color: white;
+    opacity: 1;
+    color: #66c720;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .paused{
+    -webkit-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+    -o-animation-play-state:paused; 
+    animation-play-state:paused;
+}
+
+#progress {
+  position: absolute !important;
+  z-index: 14;
+  width: 23%;
+  bottom: 1%;
+  right: 3%;
+}
+
+#current-value {
+  display: none;
+  position: absolute;
+    z-index: 3;
+    color: black;
+    font-size: 55pt;
+    top: -14px;
+    top: 44%;
+}
+
+
+#perc {
+  position: absolute;
+    z-index: 3;
+    font-size: 69pt;
+    top: 33%;
+    left: 18%;
+    color: white;
+    text-shadow: 6px 0px blue;
+}
+
+#target-value {
+  position: absolute;
+  z-index: 3;
+  color: wheat;
+  font-size: 55pt;
+  right: 39%;
+  top: -41%;
+  color: red;
+  background: white;
+  color: black;
+  border: 7px solid red;
+  border-radius: 51px;
+  padding: 2%;
+}
+
+#more {
+  position: absolute;
+  display: none;
+  top: 1%;
+  font-size: 60pt;
+  left: 31%;
+}
+
+#guide {
+  position: absolute;
+  background: #383838de;
+  z-index: 10;
+  width: 70%;
+  font-size: 3vh;
+  color: white;
+  text-align: center;
+  left: 15%;
+  top: 21%;
+  height: 68%;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#guide button {
+    font-size: 3vh;
+    background: #ffc900;
+}
+
+#guide p {
+  font-size: 10vh;
+}
+
+.progressbar-text {
+  bottom: -19% !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 5vh !important;
+  line-height: 57px;
+  width: 100%;
+}
+
+.progressbar-text #barPercentage {
+  font-size: 2vh;
+  margin-top: 4%;
+}
+
+#counter-label {
+  font-size: 2vh;
+}
+
+.red-text {
+  color:red !important;
+}
+
+.player-to-left {
+  transition-duration: 2s !important;
+  left: -20% !important;
+}
+
+.player-to-right {
+  transition-duration: 2s !important;
+  left: 84% !important;
+}
+
+.faster {
+  transition-duration: 0.5s !important;
+}
