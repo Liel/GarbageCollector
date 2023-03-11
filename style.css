@@ -302,7 +302,7 @@ div#welcome {
   }  
 
   .main {
-    background-image: url(assets/bgRoad.png);
+    background-image: url(assets/bgRoad-red.png);
     background-repeat-x: no-repeat;
     background-size: 110%;
     background-repeat-y: repeat;
@@ -511,6 +511,15 @@ div#welcome {
 
 #guide p {
   font-size: 10vh;
+}
+
+.trash-counter {
+  display: flex;
+  align-items: center;
+}
+
+.trash-counter SPAN {
+  color: #58cf51;
 }
 
 .progressbar-text {
