@@ -38,6 +38,11 @@ var targetNumber;
 var gameScreenHeight; 
 
 function gameLoop() {
+    innerGameLoopLogic()
+    requestAnimationFrame(gameLoop)
+}
+
+function innerGameLoopLogic() {
     if(!animationAllowed || !playerInstance || !playerInstance.player)
         return;
 
@@ -56,13 +61,8 @@ function gameLoop() {
             
             const isObstacle = currentDynamicItem.type == dynamicItemsManagerInstance.itemTypes.OBSTACLE;
             if(isObstacle) {
-                currentDynamicItem.htmlElement.classList.add("collided")
-                counters.obstacles++;
-                document.getElementById("heart-" + counters.obstacles).remove()
-                playerInstance.player.animateClass("collidion")
-                if(counters.obstacles === GAME_OVER_OBSTACLES_COUNT) {
-                    gameOver();
-                }
+                obstacleCollide(currentDynamicItem, itemBoundries);
+                return;
             }
             else {
                 counters.trashItems++;
@@ -80,14 +80,6 @@ function gameLoop() {
                 return;
             }
             updatePercentage()
-
-            if(isObstacle) {
-                gestureManagerInstance.showObtacleCollidionGesture(currentDynamicItem.htmlElement, 
-                    itemBoundries.top, 
-                    itemBoundries.left,
-                    `${operatorsDispay[currentDynamicItem.operator]}${currentDynamicItem.numericValue}`)
-                return;
-            }
 
             gestureManagerInstance.showCollidionGesture(currentDynamicItem.htmlElement, 
                     itemBoundries.top, 
@@ -109,6 +101,21 @@ function isCollide(a, b) {
         ((aRect.left + aRect.width) < bRect.left) ||
         (aRect.left > (bRect.left + bRect.width))
     );
+}
+
+function obstacleCollide(obstacle, itemBoundries) {
+    obstacle.htmlElement.classList.add("collided");
+    counters.obstacles++;
+    document.getElementById("heart-" + counters.obstacles).remove()
+    playerInstance.player.animateClass("collidion")
+    if(counters.obstacles === GAME_OVER_OBSTACLES_COUNT) {
+        gameOver();
+    }
+
+    gestureManagerInstance.showObtacleCollidionGesture(obstacle.htmlElement, 
+        itemBoundries.top, 
+        itemBoundries.left,
+        `${operatorsDispay[obstacle.operator]}${obstacle.numericValue}`)
 }
 
 function calculateAggreatedValue(item) {
@@ -226,7 +233,7 @@ function reset() {
     aggregatedValue = INITIAL_NUMBER;
     percentage = 0
     gameOverCountDown = GAME_OVER_INTERVAL_VALUE / 1000;
-    dynamicItemsManagerInstance.removeAll();
+    // dynamicItemsManagerInstance.removeAll();
     progressBarInstance.reset(targetNumber)
 }
 
@@ -245,7 +252,8 @@ function startGame() {
 }
 
 function startGameAfterGuide() {
-    gameLoopInterval = setInterval(gameLoop, 50);
+    requestAnimationFrame(gameLoop)
+    // gameLoopInterval = setInterval(gameLoop, 50);
     dynamicItemsManagerInstance = new dynamicItemsManager(pathNum, numInPathPositionLeftRange)
     dynamicItemsManagerInstance.initTimeout();
     // gameOverInterval = setInterval(countDownToGameOver, 1000)
@@ -265,7 +273,7 @@ function tryAgain() {
     const gameOverElement = document.getElementById("gameOver");
     gameOverElement.classList.add("hidden")
     playerInstance.releaseSuspention();
-
+    resetLife();
     startGame();
 }
 
@@ -300,4 +308,11 @@ function updatePercentage() {
 
 function isOverlappingTargetNumber() {
     return aggregatedValue > targetNumber
+}
+
+function resetLife() {
+    const numOfHearts = 3;
+    for (let i = 1; i <numOfHearts+1; i++) {
+        document.querySelector(".hearts").innerHTML += `<img src="assets/corazon.png" id="heart-${i}" />`    
+    }
 }

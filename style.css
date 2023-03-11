@@ -129,7 +129,7 @@ div#welcome {
   background-size: 78%;
   background-repeat: no-repeat;
   border-radius: 0;
-  height: 12%;
+  height: 9%;
 }
 
 .obstacle.red {
@@ -317,7 +317,7 @@ div#welcome {
     background-repeat-y: repeat;
     background-position-y: 27px;
     background-position-x: 50%;
-    animation: loopingRoad 38s linear infinite;
+    animation: loopingRoad 28s linear infinite;
     height: 100%;
     width: 100%;
     overflow: hidden;
