@@ -13,7 +13,7 @@ class dynamicItemsManager {
 
     prepareItemByType = {
         "REGULAR_NUM": this.prepateRegularNum,
-        "OBSTACLE": this.prepateObstacle,
+        "OBSTACLE": this.prepateObstacle.bind(this),
         "GOLD": this.prepareGoldNum
     }
 
@@ -53,14 +53,10 @@ class dynamicItemsManager {
 
     randomizeItemType() {
         var d = Math.random();
-        if (d < 0.6)
-            // 50% chance of being here
+        if (d < 0.55)
             return "REGULAR_NUM"
-        else if (d < 0.95)
+        else 
             return "OBSTACLE"
-        else {
-            return "GOLD"
-        }
     }
 
     createDynamicItems() {
@@ -134,8 +130,13 @@ class dynamicItemsManager {
         item.operator = item.isPlus ? "plus" : "minus";
         item.displayValue = `${item.isPlus ? "" : "-"}${item.numericValue}`
         // TODO: emit event
-        item.class = "obstacle";
+        item.class = `obstacle ${this.randomizeObstacleColor()}`;
     }   
+
+    randomizeObstacleColor() {
+        const supportedColors = ["red", "blue", "green"];
+        return supportedColors[randomIntFromInterval(0, supportedColors.length - 1)]
+    }
 
     removeItemById(item) {
         if(item.htmlElement)

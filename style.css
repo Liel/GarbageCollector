@@ -125,12 +125,21 @@ div#welcome {
 }
 
 .obstacle {
-  background-image: url("assets/car1.png");
   top: 18%;
   background-size: 78%;
   background-repeat: no-repeat;
   border-radius: 0;
   height: 12%;
+}
+
+.obstacle.red {
+  background-image: url("assets/car-red.png");
+}
+.obstacle.green {
+  background-image: url("assets/car-green.png");
+}
+.obstacle.blue {
+  background-image: url("assets/car-blue.png");
 }
 
 .path {
