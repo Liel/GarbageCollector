@@ -56,8 +56,10 @@ function gameLoop() {
             
             const isObstacle = currentDynamicItem.type == dynamicItemsManagerInstance.itemTypes.OBSTACLE;
             if(isObstacle) {
+                currentDynamicItem.htmlElement.classList.add("collided")
                 counters.obstacles++;
-                document.getElementById("hearts").innerHTML = `${GAME_OVER_OBSTACLES_COUNT - counters.obstacles}`
+                document.getElementById("heart-" + counters.obstacles).remove()
+                playerInstance.player.animateClass("collidion")
                 if(counters.obstacles === GAME_OVER_OBSTACLES_COUNT) {
                     gameOver();
                 }
@@ -65,10 +67,10 @@ function gameLoop() {
             else {
                 counters.trashItems++;
                 document.getElementById("trashCount").innerHTML = `${counters.trashItems}`
+                dynamicItemsManagerInstance.removeItemById(currentDynamicItem)
             }
 
             const isReachedTargetNum = calculateAggreatedValue(currentDynamicItem);
-            dynamicItemsManagerInstance.removeItemById(currentDynamicItem)
 
             // animation
             if(isReachedTargetNum) {
@@ -96,6 +98,8 @@ function gameLoop() {
 }
 
 function isCollide(a, b) {
+    if(a.classList.contains("collided")) return false;
+
     var aRect = a.getBoundingClientRect();
     var bRect = b.getBoundingClientRect();
 
@@ -143,7 +147,6 @@ function showAddedAnimation(value) {
     setTimeout(() => {
         document.getElementById("indication").innerHTML = ""
     }, 1000)
-
 }
 
 function increaseCoins() {

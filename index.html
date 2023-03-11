@@ -14,9 +14,6 @@
                 GARBAGE COLLECTOR
             </div>
             <button id="startGame" class="shake" onclick="startGame()">START</button>
-            <div class="welcome-car">
-                <img class="bounceIn" src="assets/car_topview.png" />
-            </div>
         </div>
         <div class="hidden" id="guide"></div>
         <div id="container" class="main">
@@ -24,11 +21,14 @@
             <div id="header">
                 <div class="coins" id="cointCounter" class="hidden"></div>
                 <div id="counters">
-                    <div>t: <span id="trashCount"></span></div>
-                    <div>heart: <span id="hearts">10</span></div>
+                    <div><img src="assets/trash_can.png" /> <span id="trashCount"></span></div>                        
+                    </div>
+                    <div class="hearts">
+                        <img src="assets/corazon.png" id="heart-1" />
+                        <img src="assets/corazon.png" id="heart-2" />
+                        <img src="assets/corazon.png" id="heart-3" />
+                    </div>
                     <div id="target-num" class="hidden"></div> 
-                    <div id="currentScore"></div>
-                    <div id="indication"></div>
                 </div>
             </div>
             

@@ -30,3 +30,9 @@ HTMLElement.prototype.removeWithTimeout = function(timeoutValue) {
     const that = this;
     setTimeout(x => that.remove(), timeoutValue)
 }
+
+HTMLElement.prototype.animateClass = function(className, timeoutValue = 250) {
+    const that = this;
+    that.classList.add(className)
+    setTimeout(x => that.classList.remove(className), timeoutValue)
+}
