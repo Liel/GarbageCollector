@@ -7,6 +7,7 @@ var dynamicItemsManagerInstance;
 // const progressBarInstance = new ProgressBarManager();
 const startingGuideInstance = new StartingGuideManager();
 const playerInstance = new Player();
+const lifeManager = new LifeManager();
 const userRecordsManager = new UserRecordsManager();
 
 var gameLoopInterval;
@@ -111,9 +112,10 @@ function printTrashCount(count) {
 function obstacleCollide(obstacle, itemBoundries) {
     obstacle.htmlElement.classList.add("collided");
     counters.obstacles++;
-    document.getElementById("heart-" + counters.obstacles).remove()
+   // document.getElementById("heart-" + counters.obstacles).remove()
+    const life = lifeManager.decreaseLifeCount();
     playerInstance.player.animateClass("collidion")
-    if(counters.obstacles === GAME_OVER_OBSTACLES_COUNT) {
+    if(life.gameOver) {
         gameOver();
     }
 
@@ -284,7 +286,7 @@ function tryAgain() {
     const gameOverElement = document.getElementById("gameOver");
     gameOverElement.classList.add("hidden")
     playerInstance.releaseSuspention();
-    resetLife();
+    lifeManager.init();
     startGame();
 }
 
@@ -325,11 +327,4 @@ function updatePercentage() {
 
 function isOverlappingTargetNumber() {
     return aggregatedValue > targetNumber
-}
-
-function resetLife() {
-    const numOfHearts = 3;
-    for (let i = 1; i <numOfHearts+1; i++) {
-        document.querySelector(".hearts").innerHTML += `<img src="assets/corazon.png" id="heart-${i}" />`    
-    }
 }

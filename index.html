@@ -22,13 +22,13 @@
             <div id="progress" class="hidden"></div>
             <div id="header">
                 <div class="coins" id="cointCounter" class="hidden"></div>
+                <div class="hearts">
+                    <img src="assets/corazon.png" id="heart-1" />
+                    <img src="assets/corazon.png" id="heart-2" />
+                    <img src="assets/corazon.png" id="heart-3" />
+                </div>
                 <div id="counters">
                     <div class="trash-counter"><img src="assets/trash_can.png" /> <span id="trashCount"></span></div>                        
-                    </div>
-                    <div class="hearts">
-                        <img src="assets/corazon.png" id="heart-1" />
-                        <img src="assets/corazon.png" id="heart-2" />
-                        <img src="assets/corazon.png" id="heart-3" />
                     </div>
                     <div id="target-num" class="hidden"></div> 
                 </div>
@@ -59,11 +59,12 @@
         <script src="utills.js"></script>
         <script src="enums.js"></script>
         <script src="managers/startingGuideManager.js"></script>
-        <script src="managers/progressBarManager.js"></script>
+        <!-- <script src="managers/progressBarManager.js"></script> -->
         <script src="managers/playerManager.js"></script>
         <script src="managers/fallingItemsManager.js"></script>
         <script src="managers/gestureManager.js"></script>
         <script src="managers/recordManager.js"></script>
+        <script src="managers/lifeManager.js"></script>
         <script src="app.js"></script>
     </body>
 </html>
