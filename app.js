@@ -4,9 +4,10 @@
 // but maybe we should have instead a var for "startingFrom" which is 50
 const gestureManagerInstance = new gestureManager()
 var dynamicItemsManagerInstance;
-const progressBarInstance = new ProgressBarManager();
+// const progressBarInstance = new ProgressBarManager();
 const startingGuideInstance = new StartingGuideManager();
 const playerInstance = new Player();
+const userRecordsManager = new UserRecordsManager();
 
 var gameLoopInterval;
 var generateItemsTimeout;
@@ -140,7 +141,7 @@ function calcAndPrintAggreatedValue() {
     }
 
     // updateIndicationLabels(aggregatedValue)
-    progressBarInstance.updateProgress(aggregatedValue)
+    // progressBarInstance.updateProgress(aggregatedValue)
     // showAddedAnimation(animationValue)
     return isReachedTheTargetNumber;
 }
@@ -209,7 +210,7 @@ function startup() {
     playerInstance.init(gameScreenHeight, gameScreenWidth);
 
     coins = 0;
-    progressBarInstance.init(targetNumber);
+    // progressBarInstance.init(targetNumber);
 
     const gameScreenXCenter = gameScreenWidth / 2;
 
@@ -234,7 +235,7 @@ function reset() {
     percentage = 0
     gameOverCountDown = GAME_OVER_INTERVAL_VALUE / 1000;
     // dynamicItemsManagerInstance.removeAll();
-    progressBarInstance.reset(targetNumber)
+    // progressBarInstance.reset(targetNumber)
 }
 
 function stop() {
@@ -246,7 +247,10 @@ function stop() {
 function startGame() {
     setTimeout(startup, 200)
     document.getElementById("welcome").classList.add("hidden");
-    // startingGuideInstance.start();
+    counters = {
+        trashItems: 0,
+        obstacles: 0
+    }
     startGameAfterGuide();
     return;
 }
@@ -262,15 +266,13 @@ function startGameAfterGuide() {
 
 function gameOver() {
     dynamicItemsManagerInstance.stopTimeout();
-    counters = {
-        trashItems: 0,
-        obstacles: 0
-    }
-    // clearInterval(gameLoopInterval);
-    // clearInterval(gameOverInterval)
+    dynamicItemsManagerInstance.removeAll();
+    const score = userRecordsManager.setScore(counters.trashItems);
     const gameOverElement = document.getElementById("gameOver");
     playerInstance.suspend();
-    gameOverElement.classList.remove("hidden")
+    gameOverElement.classList.remove("hidden");
+    if(score.isHighscore)
+        userRecordsManager.showNewRecordLabel();
 }
 
 function tryAgain() {

@@ -473,6 +473,13 @@ div#welcome {
     text-shadow: 6px 0px blue;
 }
 
+#new-highscore {
+  font-size: 2vh;
+  color: #58cf51;
+  font-family: 'Press Start 2P';
+  margin-top: 10%;
+}
+
 #target-value {
   position: absolute;
   z-index: 3;
