@@ -67,7 +67,7 @@ function innerGameLoopLogic() {
             }
             else {
                 counters.trashItems++;
-                document.getElementById("trashCount").innerHTML = `${counters.trashItems}`
+                printTrashCount(counters.trashItems);
                 dynamicItemsManagerInstance.removeItemById(currentDynamicItem)
             }
 
@@ -102,6 +102,10 @@ function isCollide(a, b) {
         ((aRect.left + aRect.width) < bRect.left) ||
         (aRect.left > (bRect.left + bRect.width))
     );
+}
+
+function printTrashCount(count) {
+    document.getElementById("trashCount").innerHTML = count;
 }
 
 function obstacleCollide(obstacle, itemBoundries) {
@@ -251,6 +255,7 @@ function startGame() {
         trashItems: 0,
         obstacles: 0
     }
+    printTrashCount(0)
     startGameAfterGuide();
     return;
 }
@@ -301,6 +306,12 @@ function adjustGameOverCounterText(countValue) {
 
 function changeRoadSpeed(newSpeedNumeric) {
     document.getElementById("container").style["-webkit-animation-duration"] = newSpeedNumeric + "s";
+}
+
+function increaseGameSpeed() {
+    // player speed
+    // road speed
+    // falling items speed
 }
 
 function updatePercentage() {
