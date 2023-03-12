@@ -165,7 +165,7 @@ class dynamicItemsManager {
     // this method created so the items will be dynamic with a small gap
     // and not falling together at the same line
     randomizeSpeed() { 
-        randomIntFromInterval(this.speedInceasedNum - 0.1, this.speedInceasedNum + 0.1)
+        return randomIntFromInterval(this.speedInceasedNum - 0.1, this.speedInceasedNum + 0.1)
     }
 
     increaseSpeed() {
