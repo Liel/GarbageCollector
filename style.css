@@ -104,7 +104,7 @@ div#welcome {
   position: absolute;
   left: 38%;
   top: 0%;
-  width: 107px;
+  width: 92px;
   height: 140px;
   border-radius: 82px;
   display: flex;
@@ -129,7 +129,7 @@ div#welcome {
   background-size: 78%;
   background-repeat: no-repeat;
   border-radius: 0;
-  height: 186px;
+  height: 166px;
 }
 
 .obstacle.red {
@@ -149,8 +149,8 @@ div#welcome {
 }
 
 #player {
-  width: 20%;
-  height: 275px;
+  width: 17%;
+  height: 230px;
   position: absolute;
   bottom: 3%;
   left: 15%;

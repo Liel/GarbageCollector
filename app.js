@@ -262,6 +262,10 @@ function startGameAfterGuide() {
 
 function gameOver() {
     dynamicItemsManagerInstance.stopTimeout();
+    counters = {
+        trashItems: 0,
+        obstacles: 0
+    }
     // clearInterval(gameLoopInterval);
     // clearInterval(gameOverInterval)
     const gameOverElement = document.getElementById("gameOver");
