@@ -253,13 +253,20 @@ function stop() {
 function startGame() {
     setTimeout(startup, 200)
     document.getElementById("welcome").classList.add("hidden");
+    
+    printTrashCount(0)
+    startGameAfterGuide();
+    return;
+}
+
+function startGameAfterGameOver() {
     counters = {
         trashItems: 0,
         obstacles: 0
     }
     printTrashCount(0)
-    startGameAfterGuide();
-    return;
+    generateNewTargetNumber();
+    dynamicItemsManagerInstance.initTimeout();
 }
 
 function startGameAfterGuide() {
@@ -287,7 +294,7 @@ function tryAgain() {
     gameOverElement.classList.add("hidden")
     playerInstance.releaseSuspention();
     lifeManager.init();
-    startGame();
+    startGameAfterGameOver();
 }
 
 function countDownToGameOver() {
