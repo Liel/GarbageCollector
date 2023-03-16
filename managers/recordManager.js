@@ -4,7 +4,7 @@ class UserRecordsManager {
     NEW_RECORD_ELEMENT_ID = "new-highscore"
     
     constructor() {
-        
+        document.getElementById("user-record").innerHTML = this.getCurrentRecord()
     }
 
     getCurrentRecord() {

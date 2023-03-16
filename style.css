@@ -50,7 +50,7 @@ div#welcome {
 }
 
 .hearts {
-  flex-basis: 50%;
+  flex-basis: 28%;
 }
 
 .hearts img {
@@ -142,6 +142,15 @@ div#welcome {
   background-image: url("assets/car-blue.png");
 }
 
+.lifePlus {
+    background-image: url("assets/corazon.png");
+    background-repeat: no-repeat;
+    background-size: 5vh;
+    box-shadow: 0 0 5px white;
+    background-position: 20%;
+    height: 6%;
+}
+
 .path {
     flex-basis: 32%;
     position: relative;
@@ -181,7 +190,6 @@ div#welcome {
     height: 9%;
     justify-content: center;
     font-size: 4vh;
-    background-image: url(assets/bg.jpeg);
     background-position-y: 22%;
     background-position-x: 225%;
     box-shadow: 0 0 11px black;
@@ -356,11 +364,11 @@ div#welcome {
 
 
   .coins {
+    display: none;
     position: absolute;
     font-size: 3vh;
     width: 70px;
     height: 70px;
-    display: flex;
     align-items: center;
     align-content: center;
     text-shadow: 0 0 7px white;
@@ -388,6 +396,7 @@ div#welcome {
     justify-content: center;
     line-height: 80%;
     position: relative;
+    flex-basis: 50%;
   }
 
   #indication {

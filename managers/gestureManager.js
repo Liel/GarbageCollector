@@ -61,6 +61,29 @@ class gestureManager {
         }, 200)
     }
 
+    showLifeGesture(collidedElement, top, left, customText = null, customClass = null) {
+        const elementAnimation = document.createElement("div")
+        elementAnimation.innerHTML = "&#128147;"
+        elementAnimation.classList.add(this.COLLIDION_ANIMATION_CLASS_NAME, "red-text")
+        
+        if(customClass)
+            elementAnimation.classList.add(customClass)
+
+        elementAnimation.style.cssText = `
+            top: ${top + 5}; 
+            left: ${left};
+        `;
+        document.body.append(elementAnimation)
+        setTimeout(()=>{
+            elementAnimation.style.cssText = `
+                top: 3%; 
+                left: 37%;
+                opacity: 0.6;
+            `;
+            elementAnimation.removeWithTimeout(1000)
+        }, 200)
+    }
+
     showCoinsGesture(top, left) {
         const elementAnimation = document.createElement("div")
         elementAnimation.classList.add(this.COINS_CLASS_NAME)

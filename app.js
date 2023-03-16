@@ -7,7 +7,7 @@ var dynamicItemsManagerInstance;
 // const progressBarInstance = new ProgressBarManager();
 const startingGuideInstance = new StartingGuideManager();
 const playerInstance = new Player();
-const lifeManager = new LifeManager();
+const lifeManager = LifeManager.getInstance();
 const userRecordsManager = new UserRecordsManager();
 
 var gameLoopInterval;
@@ -61,15 +61,17 @@ function innerGameLoopLogic() {
         if(isCollide(currentDynamicItem.htmlElement, playerInstance.player)) {        
             moves++;
             
-            const isObstacle = currentDynamicItem.type == dynamicItemsManagerInstance.itemTypes.OBSTACLE;
-            if(isObstacle) {
-                obstacleCollide(currentDynamicItem, itemBoundries);
-                return;
-            }
-            else {
-                counters.trashItems++;
-                printTrashCount(counters.trashItems);
-                dynamicItemsManagerInstance.removeItemById(currentDynamicItem)
+            switch(currentDynamicItem.type) {
+                case dynamicItemsManagerInstance.itemTypes.OBSTACLE:
+                    obstacleCollide(currentDynamicItem, itemBoundries);
+                    return;
+                case dynamicItemsManagerInstance.itemTypes.LIFE:   
+                    lifeCollide(currentDynamicItem, itemBoundries)
+                    return
+                default:
+                    counters.trashItems++;
+                    printTrashCount(counters.trashItems);
+                    dynamicItemsManagerInstance.removeItemById(currentDynamicItem)
             }
 
             const isReachedTargetNum = calculateAggreatedValue(currentDynamicItem);
@@ -125,6 +127,15 @@ function obstacleCollide(obstacle, itemBoundries) {
         `${operatorsDispay[obstacle.operator]}${obstacle.numericValue}`)
 }
 
+function lifeCollide(lifeItem, itemBoundries) {
+    lifeManager.increaseLifeCount();
+    gestureManagerInstance.showLifeGesture(lifeItem.htmlElement, 
+        itemBoundries.top, 
+        itemBoundries.left)
+    
+    dynamicItemsManagerInstance.removeItemById(lifeItem)
+}
+
 function calculateAggreatedValue(item) {
     const operator = item.operator,
           numericValue = item.numericValue;
@@ -168,8 +179,8 @@ function increaseCoins() {
     const coinsElement = document.getElementById("cointCounter")
     coinsElement.innerHTML = coins;
 
-    if(coinsElement.classList.contains("hidden"))
-        coinsElement.classList.remove("hidden")
+    // if(coinsElement.classList.contains("hidden"))
+    //     coinsElement.classList.remove("hidden")
 }
 
 function stopAnimation() {
@@ -254,6 +265,7 @@ function startGame() {
     setTimeout(startup, 200)
     document.getElementById("welcome").classList.add("hidden");
     
+    lifeManager.init();
     printTrashCount(0)
     startGameAfterGuide();
     return;
@@ -264,6 +276,7 @@ function startGameAfterGameOver() {
         trashItems: 0,
         obstacles: 0
     }
+    lifeManager.init();
     printTrashCount(0)
     generateNewTargetNumber();
     dynamicItemsManagerInstance.initTimeout();
@@ -293,7 +306,7 @@ function tryAgain() {
     const gameOverElement = document.getElementById("gameOver");
     gameOverElement.classList.add("hidden")
     playerInstance.releaseSuspention();
-    lifeManager.init();
+    
     startGameAfterGameOver();
 }
 

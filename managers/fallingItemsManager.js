@@ -4,27 +4,32 @@ class dynamicItemsManager {
     generateItemsTimeout;
     pathsCount;
     currentInstance;
+    lifeManager;
     speedInceasedNum = 28; // initial value should be aligned with 'fallingNum' css class
     itemTypes = {
         REGULAR_NUM: "REGULAR_NUM",
         OBSTACLE: "OBSTACLE",
-        GOLD: "GOLD"
+        GOLD: "GOLD",
+        LIFE: "LIFE"
     }
 
     prepareItemByType = {
         "REGULAR_NUM": this.prepateRegularNum,
         "OBSTACLE": this.prepateObstacle.bind(this),
-        "GOLD": this.prepareGoldNum
+        "GOLD": this.prepareGoldNum,
+        "LIFE": this.prepateLife
     }
 
     constructor(pathsCount, numInPathPositionLeftRange) {
         this.pathsCount = pathsCount;
         this.numInPathPositionLeftRange = numInPathPositionLeftRange
         this.currentInstance = this;
+        this.lifeManager =  LifeManager.getInstance();
 
         this.generateNewNumberItem = this.generateNewNumberItem.bind(this); 
         this.prepateRegularNum = this.prepateRegularNum.bind(this);
         this.prepateObstacle = this.prepateObstacle.bind(this);
+        this.prepateLife = this.prepateLife.bind(this)
     }
 
     initTimeout() {
@@ -55,7 +60,9 @@ class dynamicItemsManager {
         var d = Math.random();
         if (d < 0.55)
             return "REGULAR_NUM"
-        else 
+        else if(d < 0.65 && !this.lifeManager.isLifeCountFull())
+            return "LIFE"
+        else
             return "OBSTACLE"
     }
 
@@ -131,7 +138,16 @@ class dynamicItemsManager {
         item.displayValue = `${item.isPlus ? "" : "-"}${item.numericValue}`
         // TODO: emit event
         item.class = `obstacle ${this.randomizeObstacleColor()}`;
-    }   
+    }
+
+    prepateLife(item) {
+        item.numericValue = 1
+        item.isPlus = true;
+        item.operator = "plus";
+        item.displayValue = `&#128517;`
+        // TODO: emit event
+        item.class = `lifePlus red`;
+    }      
 
     randomizeObstacleColor() {
         const supportedColors = ["red", "blue", "green"];
